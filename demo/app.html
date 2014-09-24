@@ -33,10 +33,11 @@
             });
 
             var app = new App($('#app'));
-            app.route('/', Index);
-            app.route('/index/{id}', Index);
-            app.route('/test', Test);
-            app.run();
+            
+            app.route('/', Index)
+               .route('/index/{id}', Index)
+               .route('/test', Test)
+               .run();
         });
     </script>
 </body>
