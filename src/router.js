@@ -160,7 +160,7 @@
      * 
      */
     if (typeof window.define === "function" && define.amd) {
-        define("kotenei/router", [], function () {
+        define("km/router", [], function () {
             return Router;
         });
     } else {

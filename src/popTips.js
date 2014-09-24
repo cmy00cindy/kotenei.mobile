@@ -3,7 +3,7 @@
  * @date:2014-09-10
  * @author:kotenei(kotenei@qq.com)
  */
-define('kotenei/popTips', ['jquery'], function ($) {
+define('km/popTips', ['jquery'], function ($) {
 
     /**
      * 弹出提示模块
@@ -43,13 +43,13 @@ define('kotenei/popTips', ['jquery'], function ($) {
                 var html = [];
                 switch (status) {
                     case "success":
-                        html.push('<div class="pop-tips success"><span class="fa fa-check"></span>&nbsp;<span>' + content + '</span></div>');
+                        html.push('<div class="km-pop-tips success"><span class="fa fa-check"></span>&nbsp;<span>' + content + '</span></div>');
                         break;
                     case "error":
-                        html.push('<div class="pop-tips error"><span class="fa fa-close"></span>&nbsp;<span>' + content + '</span></div>');
+                        html.push('<div class="km-pop-tips error"><span class="fa fa-close"></span>&nbsp;<span>' + content + '</span></div>');
                         break;
                     case "warning":
-                        html.push('<div class="pop-tips warning"><span class="fa fa-exclamation"></span>&nbsp;<span>' + content + '</span></div>');
+                        html.push('<div class="km-pop-tips warning"><span class="fa fa-exclamation"></span>&nbsp;<span>' + content + '</span></div>');
                         break;
                 }
                 return html.join('');

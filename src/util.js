@@ -3,7 +3,7 @@
  * @module kotenei/util 
  * @author vfasky (vfasky@gmail.com)
  */
-define('kotenei/util', function(){
+define('km/util', function(){
     var exports = {};
 
     var Ctor = function () {};

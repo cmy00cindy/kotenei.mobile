@@ -3,7 +3,7 @@
  * @date:2014-09-04
  * @author:kotenei(kotenei@qq.com)
  */
-define('kotenei/validate', ['jquery'], function ($) {
+define('km/validate', ['jquery'], function ($) {
 
     /**
      * 表单验证模块

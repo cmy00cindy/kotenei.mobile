@@ -3,7 +3,7 @@
  * @date:2014-09-05
  * @author:kotenei(kotenei@qq.com)
  */
-define('kotenei/tooltips', ['jquery'], function ($) {
+define('km/tooltips', ['jquery'], function ($) {
 
     /**
      * 消息提示模块
@@ -29,7 +29,7 @@ define('kotenei/tooltips', ['jquery'], function ($) {
      * @return {Void}
      */
     Tooltips.prototype.init = function () {
-        this.$tips = $('<div class="tooltips"><div class="tooltips-arrow"></div><div class="tooltips-title"></div><div class="tooltips-inner"></div></div>');
+        this.$tips = $('<div class="km-tooltips"><div class="tooltips-arrow"></div><div class="tooltips-title"></div><div class="tooltips-inner"></div></div>');
         this.$tips.addClass(this.options.placement).addClass(this.options.tipClass);
         //this.setTitle();
         this.setContent();
@@ -38,7 +38,7 @@ define('kotenei/tooltips', ['jquery'], function ($) {
         for (var i = 0, trigger; i < triggers.length; i++) {
             trigger = triggers[i];
             if (trigger === 'click') {
-                this.$element.on(trigger + ".tooltips", $.proxy(this.toggle, this));
+                this.$element.on(trigger + ".km-tooltips", $.proxy(this.toggle, this));
             } else if (trigger != 'manual') {
                 var eventIn = trigger === 'hover' ? 'mouseenter' : 'focus';
                 var eventOut = trigger === 'hover' ? 'mouseleave' : 'blur';
