@@ -91,11 +91,12 @@ define('km/app', ['jquery', 'km/router', 'km/popTips', 'km/util'], function($, R
         }
 
         self.loading.show();
-        $el = $('<div class="' + self.config.viewClass + '"></div>');
-        //调度view
-        require([viewName], function(View){
+
+        var callView = function(View){
             self.loading.hide();
-            //需要继承 app.View
+            $el = $('<div class="' + self.config.viewClass + '"></div>');
+            // console.log(View);
+            //需要继承 App.View
             var view = new View($el, self);
             view.run(context);
 
@@ -107,7 +108,17 @@ define('km/app', ['jquery', 'km/router', 'km/popTips', 'km/util'], function($, R
             view.$el.appendTo(self.$el);
        
             complete(self._view.instance);
-        });
+        };
+
+        if(typeof(viewName) === 'string'){
+            //调度view
+            require([viewName], function(View){
+                callView(View);
+            });
+        }
+        else{
+            callView(viewName);
+        }
     };
 
     /**
@@ -118,7 +129,7 @@ define('km/app', ['jquery', 'km/router', 'km/popTips', 'km/util'], function($, R
      * @return {Void}
      */
     App.prototype.route = function(path, constraints, viewName){
-        if(typeof(constraints) === 'string'){
+        if(viewName === undefined){
             viewName    = constraints;
             constraints = {};
         }
@@ -141,18 +152,13 @@ define('km/app', ['jquery', 'km/router', 'km/popTips', 'km/util'], function($, R
             })(path);
         }
         router.init();
-
-        if( String(window.location.href).indexOf('#') === -1 &&
-            this._route.hasOwnProperty('/') ){
-            this.callView(this._route['/'][1], {});
-        }
     };
 
     App.View = function($el, app){
         var self = this;
         this.$el = $el;
         this.app = app;
-      
+
         var ajax = function(type, url, data){
             var dtd = $.Deferred();
             $.ajax(url, {
@@ -209,9 +215,12 @@ define('km/app', ['jquery', 'km/router', 'km/popTips', 'km/util'], function($, R
             initialize: function(){}
         }, definition || {});
 
+        var initialize = definition.initialize;
+
         var View = function($el, app){
-            App.View.call(this, $el, app);
-            definition.initialize.call(this, $el, app);
+            this.superclass = App.View.prototype;
+            this.superclass.initialize = App.View;
+            initialize.call(this, $el, app);
         };
 
         View.prototype = util.createProto(App.View.prototype);

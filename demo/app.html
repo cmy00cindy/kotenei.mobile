@@ -13,7 +13,30 @@
 
     <script type="text/javascript">
         require(['km'], function (km) {
-          
+            var App   = km.App;
+            var Index = App.View.extend({
+                initialize: function($el, app){
+                    this.superclass.initialize.call(this, $el, app);
+                    this.$el.html('<a href="#/test">test</a> <a href="#/index/xxoo">test2</a>'); 
+                },
+                run: function(context){
+                    this.superclass.run.call(this, context);
+                    console.log(context);
+                }
+            });
+
+            var Test = App.View.extend({
+                initialize: function($el, app){
+                    this.superclass.initialize.call(this, $el, app);
+                    this.$el.html('<a href="#/">返回</a>'); 
+                },
+            });
+
+            var app = new App($('#app'));
+            app.route('/', Index);
+            app.route('/index/{id}', Index);
+            app.route('/test', Test);
+            app.run();
         });
     </script>
 </body>
