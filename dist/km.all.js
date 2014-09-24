@@ -18,7 +18,8 @@ define('km/app', ['jquery', 'km/router', 'km/popTips', 'km/util'], function($, R
         this.$el = $el;
         //配置
         this.config = $.extend({
-          viewClass: 'app-view'
+          viewClass: 'app-view',
+          Template: null
         }, config || {});
         
         //加载效果
@@ -196,6 +197,13 @@ define('km/app', ['jquery', 'km/router', 'km/popTips', 'km/util'], function($, R
                 return ajax('POST', url, data);
             } 
         }; 
+    };
+
+    /**
+     * 模板引擎绑定 
+     */
+    App.View.prototype.Template = function(){
+        return this.app.config.Template.apply(null, arguments);
     };
 
     App.View.prototype.when = function(){
@@ -683,7 +691,7 @@ define('km/tooltips', ['jquery'], function ($) {
 });
 /**
  * 
- * @module kotenei/util 
+ * @module km/util 
  * @author vfasky (vfasky@gmail.com)
  */
 define('km/util', function(){

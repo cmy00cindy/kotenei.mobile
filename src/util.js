@@ -1,6 +1,6 @@
 /**
  * 
- * @module kotenei/util 
+ * @module km/util 
  * @author vfasky (vfasky@gmail.com)
  */
 define('km/util', function(){
