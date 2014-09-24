@@ -245,6 +245,31 @@ define('km/app', ['jquery', 'km/router', 'km/popTips', 'km/util'], function($, R
     return App;
 });
 /*
+ * loading模块
+ * @date:2014-09-24
+ * @author:kotenei(kotenei@qq.com)
+ */
+define('km/loading', ['jquery'], function ($) {
+
+    
+    var loading = {};
+    
+    var $loading = $('<div class="km-loading"><i class="fa fa-spinner fa-spin"></i></div>').hide();
+
+    $(document.body).append($loading);
+
+    loading.show = function () {
+        $loading.fadeIn();
+    };
+
+    loading.hide = function () {
+        $loading.fadeOut();
+    };
+
+    return loading;
+});
+
+/*
  * 弹出提示模块
  * @date:2014-09-10
  * @author:kotenei(kotenei@qq.com)
@@ -1227,9 +1252,10 @@ define('km/validateTooltips', ['jquery', 'km/validate', 'km/tooltips', 'km/util'
 	return ValidateTooltips;
 });
 ;
-define("km", ["km/app", "km/popTips", "km/router", "km/tooltips", "km/util", "km/validate", "km/validateTooltips"], function(_app, _popTips, _router, _tooltips, _util, _validate, _validateTooltips){
+define("km", ["km/app", "km/loading", "km/popTips", "km/router", "km/tooltips", "km/util", "km/validate", "km/validateTooltips"], function(_app, _loading, _popTips, _router, _tooltips, _util, _validate, _validateTooltips){
     return {
         "App" : _app,
+        "loading" : _loading,
         "popTips" : _popTips,
         "Router" : _router,
         "Tooltips" : _tooltips,

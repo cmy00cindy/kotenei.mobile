@@ -173,3 +173,14 @@
 .km-tooltips.primary.bottom .tooltips-arrow {
   border-bottom-color: #428bca;
 }
+.km-loading {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: black;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+  color: black;
+}
