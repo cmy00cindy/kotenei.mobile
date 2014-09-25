@@ -160,6 +160,11 @@ define('km/app', ['jquery', 'km/router', 'km/popTips', 'km/util'], function($, R
         this.$el = $el;
         this.app = app;
 
+        //模板引擎绑定
+        if(app.config.Template){
+            this.Template = app.config.Template;
+        }
+
         var ajax = function(type, url, data){
             var dtd = $.Deferred();
             $.ajax(url, {
@@ -199,12 +204,7 @@ define('km/app', ['jquery', 'km/router', 'km/popTips', 'km/util'], function($, R
         }; 
     };
 
-    /**
-     * 模板引擎绑定 
-     */
-    App.View.prototype.Template = function(){
-        return this.app.config.Template.apply(null, arguments);
-    };
+    
 
     App.View.prototype.when = function(){
         return $.when.apply(this, arguments);
