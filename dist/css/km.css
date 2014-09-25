@@ -182,5 +182,13 @@
   background: black;
   opacity: 0.5;
   filter: alpha(opacity=50);
-  color: black;
+  z-index: 999;
+}
+.km-loading > i {
+  position: fixed;
+  z-index: 1000;
+  left: 50%;
+  top: 50%;
+  color: white;
+  font-size: 50px;
 }

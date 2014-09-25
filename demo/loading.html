@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>app demo</title>
-    <link rel="stylesheet" type="text/css" href="vendor/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="style/vendor/font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" type="text/css" href="../dist/css/km.css" />
     <script type="text/javascript" src="./vendor/require/require.js"></script>
     <script type="text/javascript" src="./main.js"></script>
@@ -16,9 +16,9 @@
         require(['km'], function (km) {
             var loading = km.loading;
             loading.show();
-            //setTimeout(function () {
-            //    loading.hide();
-            //}, 2000);
+            setTimeout(function () {
+                loading.hide();
+            }, 2000);
         });
     </script>
 </body>
