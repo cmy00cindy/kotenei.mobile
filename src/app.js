@@ -3,7 +3,7 @@
  * @module km/app 
  * @author vfasky (vfasky@gmail.com)
  */
-define('km/app', ['jquery', 'km/router', 'km/popTips', 'km/util'], function($, Router, popTips, util){
+define('km/app', ['jquery', 'km/router', 'km/popTips', 'km/util','km/loading'], function($, Router, popTips, util,loading){
     var App = function($el, config){
         //路由绑定
         this._route = {};
@@ -25,10 +25,10 @@ define('km/app', ['jquery', 'km/router', 'km/popTips', 'km/util'], function($, R
         //加载效果
         this.loading = {
             show: function(){
-                
+                loading.show();
             },
             hide: function(){
-                
+                loading.hide();
             }
         };
         //提示效果
