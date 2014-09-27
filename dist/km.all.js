@@ -137,6 +137,16 @@ define('km/app', ['jquery', 'km/router', 'km/popTips', 'km/util','km/loading'], 
         this._route[path] = [constraints, viewName];
         return this;
     };
+    
+    App.prototype.url = function(viewName){
+        viewName = $.trim(viewName);
+        for(var k in this._route){
+            var v = this._route[k];
+            if(viewName === v[1]){
+                return k;
+            }
+        }
+    };
 
     //启动app
     App.prototype.run = function(){
