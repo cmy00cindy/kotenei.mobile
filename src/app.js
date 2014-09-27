@@ -183,7 +183,15 @@ define('km/app', ['jquery', 'km/router', 'km/popTips', 'km/util','km/loading'], 
                 data: data || {},
                 dataType: 'json'
             }).done(function(ret){
-                //console.log(ret);
+                if(ret.state){
+                    ret.Status = ret.state;
+                    if(ret.error){
+                        ret.ErrorMessage = ret.error;
+                    }
+                    if(ret.url){
+                        ret.Url = ret.url;
+                    }
+                }
                 if(ret.Status === false){
                     self.app.loading.hide();
                     self.app.showTip.error(ret.ErrorMessage || '发生未知错误', 1000);
@@ -210,6 +218,15 @@ define('km/app', ['jquery', 'km/router', 'km/popTips', 'km/util','km/loading'], 
             },
             post: function(url, data){
                 return ajax('POST', url, data);
+            },
+            put: function(url, data){
+                return ajax('PUT', url, data);
+            },
+            head: function(url, data){
+                return ajax('HEAD', url, data);
+            },
+            'delete': function(url, data){
+                return ajax('DELETE', url, data);
             } 
         }; 
     };
