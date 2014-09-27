@@ -64,7 +64,7 @@ define('km/app', ['jquery', 'km/router', 'km/popTips', 'km/util','km/loading'], 
         var self = this;
         var $el;
 
-        $.each(self._on.viewBeforeShow, function(fun){
+        $.map(self._on.viewBeforeShow, function(fun){
             fun(viewName);
         });
 
@@ -72,7 +72,7 @@ define('km/app', ['jquery', 'km/router', 'km/popTips', 'km/util','km/loading'], 
         //完成时回调
         var complete = function(view){
             callback();
-            $.each(self._on.viewAfterShow, function(fun){
+            $.map(self._on.viewAfterShow, function(fun){
                 fun(view);
             });
         }

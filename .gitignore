@@ -6,3 +6,5 @@ ehthumbs.db
 
 
 node_modules/
+
+*.swp
