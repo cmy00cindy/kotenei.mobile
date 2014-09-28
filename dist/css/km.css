@@ -176,20 +176,19 @@
 }
 .km-loading {
   position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
+  width: 0px;
+  height: 0px;
+  border-radius: 4px;
   background: black;
-  opacity: 0.5;
-  filter: alpha(opacity=50);
+  /*opacity: 0.5;
+    filter: alpha(opacity=50);*/
   z-index: 999;
+  top: 50%;
+  left: 50%;
+  display: none;
 }
 .km-loading > i {
-  position: fixed;
   z-index: 1000;
-  left: 50%;
-  top: 50%;
-  color: white;
+  color: black;
   font-size: 50px;
 }

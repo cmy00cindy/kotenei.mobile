@@ -13,11 +13,14 @@ define('km/loading', ['jquery'], function ($) {
     $(document.body).append($loading);
 
     loading.show = function () {
-        $loading.fadeIn('fast');
-        $spin.css({
+        $loading.fadeIn('fast').css({
             marginLeft: -($spin.width() / 2),
             marginTop: -($spin.height() / 2)
-        })
+        });
+        //$spin.css({
+        //    marginLeft: -($spin.width() / 2),
+        //    marginTop: -($spin.height() / 2)
+        //})
     };
 
     loading.hide = function () {
