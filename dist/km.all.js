@@ -337,12 +337,17 @@ define('km/popTips', ['jquery'], function ($) {
                 $tips = $(getHtml(status, content))
                         .appendTo(document.body);
 
-                $tips.css({ marginLeft: -($tips.width() / 2), marginTop: -($tips.height() / 2) }).fadeIn('fase', function () {
-                    tm = setTimeout(function () {
-                        $tips.stop().remove();
-                        callback();
-                    }, delay);
+                $tips.css({
+                    left: "50%",
+                    top:"50%",
+                    marginLeft: -($tips[0].offsetWidth / 2),
+                    marginTop: -($tips[0].offsetHeight / 2)
                 })
+
+                tm = setTimeout(function () {
+                    $tips.stop().remove();
+                    callback();
+                }, delay);
             }
 
             function getHtml(status, content) {
