@@ -175,63 +175,62 @@ define('km/app', ['jquery', 'km/router', 'km/popTips', 'km/util','km/loading'], 
             this.Template = app.config.Template;
         }
 
-        var ajax = function(type, url, data){
-            var dtd = $.Deferred();
-            $.ajax(url, {
-                type: type,
-                cache: false,
-                data: data || {},
-                dataType: 'json'
-            }).done(function(ret){
-                if(ret.state){
-                    ret.Status = ret.state;
-                    if(ret.error){
-                        ret.ErrorMessage = ret.error;
-                    }
-                    if(ret.url){
-                        ret.Url = ret.url;
-                    }
-                }
-                if(ret.Status === false){
-                    self.app.loading.hide();
-                    self.app.showTip.error(ret.ErrorMessage || '发生未知错误', 1000);
-                    if(ret.Url){
-                        setTimeout(function(){
-                            window.location.href = ret.Url;
-                        }, 800);
-                    }
-                }
-                else{
-                    dtd.resolve(ret);
-                }
-            }).fail(function(){
-                self.app.loading.hide();
-                self.app.showTip.error('服务端发生错误了', 1000);
-            });
-            return dtd.promise();
-        };
-
         //封装一个 promise 规范的http helper
         this.http = {
             get: function(url, data){
-                return ajax('GET', url, data);
+                return self.ajax('GET', url, data);
             },
             post: function(url, data){
-                return ajax('POST', url, data);
+                return self.ajax('POST', url, data);
             },
             put: function(url, data){
-                return ajax('PUT', url, data);
+                return self.ajax('PUT', url, data);
             },
             head: function(url, data){
-                return ajax('HEAD', url, data);
+                return self.ajax('HEAD', url, data);
             },
             'delete': function(url, data){
-                return ajax('DELETE', url, data);
+                return self.ajax('DELETE', url, data);
             } 
         }; 
     };
 
-    
+    App.View.prototype.ajax = function(type, url, data){
+        var self = this;
+        var dtd = $.Deferred();
+        $.ajax(url, {
+            type: type,
+            cache: false,
+            data: data || {},
+            dataType: 'json'
+        }).done(function(ret){
+            if(ret.state){
+                ret.Status = ret.state;
+                if(ret.error){
+                    ret.ErrorMessage = ret.error;
+                }
+                if(ret.url){
+                    ret.Url = ret.url;
+                }
+            }
+            if(ret.Status === false){
+                self.app.loading.hide();
+                self.app.showTip.error(ret.ErrorMessage || '发生未知错误', 1000);
+                if(ret.Url){
+                    setTimeout(function(){
+                        window.location.href = ret.Url;
+                    }, 800);
+                }
+            }
+            else{
+                dtd.resolve(ret);
+            }
+        }).fail(function(){
+            self.app.loading.hide();
+            self.app.showTip.error('服务端发生错误了', 1000);
+        });
+        return dtd.promise(); 
+    };
 
     App.View.prototype.when = function(){
         return $.when.apply(this, arguments);
@@ -265,7 +264,6 @@ define('km/app', ['jquery', 'km/router', 'km/popTips', 'km/util','km/loading'], 
         for(var k in definition){
             View.prototype[k] = definition[k];
         }
-
         return View;
     };
 
