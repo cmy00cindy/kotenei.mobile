@@ -198,13 +198,14 @@ define('km/app', ['jquery', 'km/router', 'km/popTips', 'km/util','km/loading'], 
     App.View.prototype.ajax = function(type, url, data){
         var self = this;
         var dtd = $.Deferred();
+        self.app.loading.show();
         $.ajax(url, {
             type: type,
             cache: false,
             data: data || {},
             dataType: 'json'
         }).done(function(ret){
-            if(ret.state){
+            if (ret.state) {
                 ret.Status = ret.state;
                 if(ret.error){
                     ret.ErrorMessage = ret.error;
@@ -222,7 +223,8 @@ define('km/app', ['jquery', 'km/router', 'km/popTips', 'km/util','km/loading'], 
                     }, 800);
                 }
             }
-            else{
+            else {
+                self.app.loading.hide();
                 dtd.resolve(ret);
             }
         }).fail(function(){
