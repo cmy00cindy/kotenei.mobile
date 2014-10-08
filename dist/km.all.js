@@ -280,12 +280,14 @@ define('km/loading', ['jquery'], function ($) {
     var loading = {};
 
     var $loading = $('<div class="km-loading"><i class="cmicon cmicon-spinner spin"></i></div>').hide();
-    var $spin = $loading.find('.fa-spin');
+    var $spin = $loading.find('.cmicon-spinner');
 
     $(document.body).append($loading);
 
     loading.show = function () {
         $loading.fadeIn('fast').css({
+            left: '50%',
+            top:'50%',
             marginLeft: -($spin.width() / 2),
             marginTop: -($spin.height() / 2)
         });
