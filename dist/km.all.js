@@ -279,7 +279,7 @@ define('km/loading', ['jquery'], function ($) {
 
     var loading = {};
 
-    var $loading = $('<div class="km-loading"><i class="fa fa-spinner fa-spin"></i></div>').hide();
+    var $loading = $('<div class="km-loading"><i class="cmicon cmicon-spinner spin"></i></div>').hide();
     var $spin = $loading.find('.fa-spin');
 
     $(document.body).append($loading);
