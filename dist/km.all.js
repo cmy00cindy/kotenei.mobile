@@ -287,7 +287,7 @@ define('km/loading', ['jquery'], function ($) {
     $(document.body).append($loading);
 
     loading.show = function () {
-        $loading.fadeIn('fast').css({
+        $loading.show().css({
             left: '50%',
             top:'50%',
             marginLeft: -($spin.width() / 2),
@@ -300,7 +300,7 @@ define('km/loading', ['jquery'], function ($) {
     };
 
     loading.hide = function () {
-        $loading.fadeOut('fast');
+        $loading.hide();
     };
 
     return loading;
