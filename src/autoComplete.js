@@ -33,7 +33,7 @@ define('km/autoComplete', ['jquery'], function ($) {
             hightLight: false,
             formatItem: function (item) { return item; }
         }, options);
-        this.tpl = '<div class="k-autocomplete"></div>';
+        this.tpl = '<div class="km-autocomplete"></div>';
         this.active = 0;
         this.init();
     };
