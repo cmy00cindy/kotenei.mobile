@@ -304,6 +304,9 @@ define('km/autoComplete', ['jquery'], function ($) {
             zIndex: 1000,
             data: [],
             max: 10,
+            width: null,
+            height: null,
+            isBottom: true,
             hightLight: false,
             formatItem: function (item) { return item; }
         }, options);
@@ -358,9 +361,14 @@ define('km/autoComplete', ['jquery'], function ($) {
             self.$element.val(text);
         });
 
+
         $(document).on('click.autocomplete', function () {
             self.hide();
         });
+
+        $(window).on('resize.autocomplete', function () {
+            self.setCss();
+        })
     };
 
     /**
@@ -386,8 +394,8 @@ define('km/autoComplete', ['jquery'], function ($) {
                     self.show();
                 }
             });
-        } else if(this.options.proxy) {
-            this.options.proxy(value, function(data){
+        } else if (this.options.proxy) {
+            this.options.proxy(value, function (data) {
                 self.data = data;
                 data = self.getData(value);
                 self.build(value, data);
@@ -448,7 +456,7 @@ define('km/autoComplete', ['jquery'], function ($) {
      */
     AutoComplete.prototype.hightLight = function (char, str) {
         if (this.options.hightLight) {
-            var reg = new RegExp('('+char+')', 'ig');
+            var reg = new RegExp('(' + char + ')', 'ig');
             str = str.replace(reg, '<strong>$1</strong>');
             return str;
         } else {
@@ -462,12 +470,38 @@ define('km/autoComplete', ['jquery'], function ($) {
      */
     AutoComplete.prototype.show = function () {
         if (!this.hasItem()) { this.hide(); return; }
-        this.$listBox.show().css({
-            left: this.$element.position().left,
-            top: this.$element.outerHeight() + this.$element.position().top,
-            width: this.$element.outerWidth()
-        });
+        this.setCss()
+        this.$listBox.show();
     };
+
+
+    /**
+     * 获取样式
+     * @return {Object}
+     */
+    AutoComplete.prototype.getCss = function () {
+        var css = {
+            left: this.$element.offset().left,
+            top: this.$element.outerHeight() + this.$element.offset().top,
+            width: this.options.width || this.$element.outerWidth()
+        }
+
+        if (!this.options.isBottom) {
+            css.top = this.$element.offset().top - this.$listBox.outerHeight(true);
+        }
+        return css;
+    };
+
+    /**
+     * 设置样式
+     * @return {Void}
+     */
+    AutoComplete.prototype.setCss = function () {
+        this.$list.css('height', this.options.height || "auto");
+        var css = this.getCss();
+        this.$listBox.css(css);
+    }
+
 
     /**
      * 隐藏列表
