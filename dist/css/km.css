@@ -227,8 +227,9 @@
   padding: 3px 10px;
   overflow: hidden;
   cursor: pointer;
-}
-.km-autocomplete > ul > li:hover,
-.km-autocomplete > ul > li.active {
-  background-color: #eee;
+  /*&:hover,
+            &.active
+            {
+                background-color: #eee;
+            }*/
 }
