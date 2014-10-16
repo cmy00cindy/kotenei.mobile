@@ -310,7 +310,7 @@ define('km/autoComplete', ['jquery'], function ($) {
             hightLight: false,
             formatItem: function (item) { return item; },
             callback: {
-                setValue:null
+                setValue: null
             }
         }, options);
         this.tpl = '<div class="km-autocomplete"></div>';
@@ -421,13 +421,13 @@ define('km/autoComplete', ['jquery'], function ($) {
      * @return {Array}     
      */
     AutoComplete.prototype.getData = function (value) {
-        this.cache = [];
+        this.cacheData = [];
         var data = [], flag = 0;
         if (value.length === 0) { return data; }
-        for (var i = 0, formatted; i < this.data.length; i++) {   
+        for (var i = 0, formatted; i < this.data.length; i++) {
             formatted = this.options.formatItem(this.data[i]);
             if (formatted.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
-                this.cache.push(this.data[i]);
+                this.cacheData.push(this.data[i]);
                 data.push(formatted);
                 if (flag === (this.options.max - 1)) {
                     break;
@@ -582,17 +582,22 @@ define('km/autoComplete', ['jquery'], function ($) {
      */
     AutoComplete.prototype.select = function () {
         var $item = this.$listBox.find('li.active');
-        this.$element.val($item.text());
+        var text = $item.text();
+        this.$element.val(text);
         this.hide();
+        if ($.isFunction(this.options.callback.setValue)) {
+            var item = this.getItem(text);
+            this.options.callback.setValue(item);
+        }
     };
 
     //根据值获取数据项
     AutoComplete.prototype.getItem = function (value) {
-        var data = this.cache;
+        var data = this.cacheData;
         if (!data || data.length === 0) { return; }
         for (var i = 0, formatted; i < data.length; i++) {
             formatted = this.options.formatItem(data[i]);
-            if (value===formatted) {
+            if (value === formatted) {
                 return data[i];
             }
         }
