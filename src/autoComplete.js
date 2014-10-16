@@ -34,7 +34,10 @@ define('km/autoComplete', ['jquery'], function ($) {
             height: null,
             isBottom: true,
             hightLight: false,
-            formatItem: function (item) { return item; }
+            formatItem: function (item) { return item; },
+            callback: {
+                setValue:null
+            }
         }, options);
         this.tpl = '<div class="km-autocomplete"></div>';
         this.active = 0;
@@ -85,6 +88,10 @@ define('km/autoComplete', ['jquery'], function ($) {
         this.$listBox.on('click', 'li', function () {
             var text = $(this).text();
             self.$element.val(text);
+            if ($.isFunction(self.options.callback.setValue)) {
+                var item = self.getItem(text);
+                self.options.callback.setValue(item);
+            }
         });
 
 
@@ -140,11 +147,13 @@ define('km/autoComplete', ['jquery'], function ($) {
      * @return {Array}     
      */
     AutoComplete.prototype.getData = function (value) {
+        this.cache = [];
         var data = [], flag = 0;
         if (value.length === 0) { return data; }
-        for (var i = 0, formatted; i < this.data.length; i++) {
+        for (var i = 0, formatted; i < this.data.length; i++) {   
             formatted = this.options.formatItem(this.data[i]);
             if (formatted.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+                this.cache.push(this.data[i]);
                 data.push(formatted);
                 if (flag === (this.options.max - 1)) {
                     break;
@@ -198,7 +207,6 @@ define('km/autoComplete', ['jquery'], function ($) {
         if (!this.hasItem()) { this.hide(); return; }
         this.setCss();
         this.$listBox.show();
-        
     };
 
 
@@ -303,6 +311,19 @@ define('km/autoComplete', ['jquery'], function ($) {
         this.$element.val($item.text());
         this.hide();
     };
+
+    //根据值获取数据项
+    AutoComplete.prototype.getItem = function (value) {
+        var data = this.cache;
+        if (!data || data.length === 0) { return; }
+        for (var i = 0, formatted; i < data.length; i++) {
+            formatted = this.options.formatItem(data[i]);
+            if (value===formatted) {
+                return data[i];
+            }
+        }
+        return null;
+    }
 
     return AutoComplete;
 
