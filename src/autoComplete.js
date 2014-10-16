@@ -101,7 +101,8 @@ define('km/autoComplete', ['jquery'], function ($) {
                 mode: "abort",
                 type: 'GET',
                 url: this.options.url,
-                data: { keyword: value, rnd: Math.random() }
+                cache: false,
+                data: { keyword: value }
             }).done(function (ret) {
                 if (ret && ret instanceof Array) {
                     var data;
@@ -110,6 +111,13 @@ define('km/autoComplete', ['jquery'], function ($) {
                     self.build(value, data);
                     self.show();
                 }
+            });
+        else if(this.options.proxy) {
+            this.options.proxy(value, function(data){
+                self.data = data;
+                data = self.getData(value);
+                self.build(value, data);
+                self.show();
             });
         } else {
             var data = this.getData(value);
