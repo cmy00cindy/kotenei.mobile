@@ -326,7 +326,7 @@ define('km/autoComplete', ['jquery'], function ($) {
         var self = this;
         this.$listBox = $(this.tpl).hide().appendTo(document.body);
         this.data = this.options.data || [];
-        this.$element.on('keyup', function (e) {
+        this.$element.on('keypress', function (e) {
             var $this = $(this),
                 val = $.trim($this.val());
 
@@ -1708,7 +1708,7 @@ define('km/wordLimit', ['jquery'], function ($) {
         var self = this;
         this.maxLength = parseInt(this.$element.attr('maxLength') || this.options.maxLength);
         this.$feedback = $(this.options.feedback);
-        this.$element.on('keyup', function () {
+        this.$element.on('keypress', function () {
             var val = $.trim($(this).val());
             self.update(val);
         });

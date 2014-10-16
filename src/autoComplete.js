@@ -52,7 +52,7 @@ define('km/autoComplete', ['jquery'], function ($) {
         var self = this;
         this.$listBox = $(this.tpl).hide().appendTo(document.body);
         this.data = this.options.data || [];
-        this.$element.on('keyup', function (e) {
+        this.$element.on('keypress', function (e) {
             var $this = $(this),
                 val = $.trim($this.val());
 
