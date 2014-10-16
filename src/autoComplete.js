@@ -112,7 +112,7 @@ define('km/autoComplete', ['jquery'], function ($) {
                     self.show();
                 }
             });
-        else if(this.options.proxy) {
+        } else if(this.options.proxy) {
             this.options.proxy(value, function(data){
                 self.data = data;
                 data = self.getData(value);
