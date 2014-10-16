@@ -223,10 +223,11 @@
   color: #333333;
   display: block;
   font-weight: normal;
-  line-height: 1.42857;
+  line-height: 46px;
   padding: 3px 10px;
   overflow: hidden;
   cursor: pointer;
+  font-size: 16px;
   /*&:hover,
             &.active
             {
