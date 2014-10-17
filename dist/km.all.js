@@ -1579,9 +1579,37 @@ define('km/validate', ['jquery'], function ($) {
         return value.length;
     };
 
+
+    /**
+     * 取表单数据
+     * @return {Object}
+     */
+    Validate.prototype.getData = function(){
+        var data = {};
+        var self  = this;
+        self.$form.find('input[name], textarea[name]').each(function(){
+            var $el = $(this);
+            if($el.is('[type=checkbox]') === false && $el.is('[type=radio]') === false){
+                data[$el.attr('name')] = $.trim($el.val());
+            }
+            else if($el.is('[type=radio]:checked')){
+                data[$el.attr('name')] = $.trim($el.val());
+            }
+            else if($el.is('[type=checkbox]:checked')){
+                var name = $el.attr('name');
+                if(!data[name]){
+                    data[name] = [];
+                }
+                data[name].push($el.val());
+            }
+        });
+        return data;
+    };
+
     return Validate;
 
 });
+
 /*
  * validate扩展  使用tooltips显示错误
  * @date:2014-09-06
