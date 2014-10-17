@@ -361,11 +361,12 @@ define('km/autoComplete', ['jquery'], function ($) {
 
         this.$listBox.on('click', 'li', function () {
             var text = $(this).text();
-            self.$element.val(text);
+            self.$element.val(text).focus();
             if ($.isFunction(self.options.callback.setValue)) {
                 var item = self.getItem(text);
                 self.options.callback.setValue(item);
-            }
+            };
+
         });
 
 
@@ -1154,8 +1155,6 @@ define('km/validate', ['jquery'], function ($) {
         this.init();
     }
 
-
-
     /**
      * 默认参数
      * @type {Object}
@@ -1169,32 +1168,6 @@ define('km/validate', ['jquery'], function ($) {
         keyupClear: true,
         errorPlacement: null
     }
-
-    /**
-     * 取表单数据
-     * @return {Object}
-     */
-    Validate.prototype.getData = function(){
-        var data = {};
-        var self  = this;
-        self.$form.find('input[name], textarea[name]').each(function(){
-            var $el = $(this);
-            if($el.is('[type=checkbox]') === false && $el.is('[type=radio]') === false){
-                data[$el.attr('name')] = $.trim($el.val());
-            }
-            else if($el.is('[type=radio]:checked')){
-                data[$el.attr('name')] = $.trim($el.val());
-            }
-            else if($el.is('[type=checkbox]:checked')){
-                var name = $el.attr('name');
-                if(!data[name]){
-                    data[name] = [];
-                }
-                data[name].push($el.val());
-            }
-        });
-        return data;
-    };
 
     /**
      * 初始化
@@ -1409,6 +1382,18 @@ define('km/validate', ['jquery'], function ($) {
     };
 
     /**
+     * 添加自定义验证规则
+     * @param  {String} name - 验证名称
+     * @param  {Function} name - 验证方法
+     * @param  {String} name - 验证出错提示
+     * @return {String}  
+     */
+    Validate.prototype.addMethod = function (name, method, message) {
+        this.methods[name] = method;
+        this.errorMessages[name] = message !== undefined ? message : this.errorMessages[name];
+    }
+
+    /**
      * 默认错误提示信息
      * @type {Object}
      */
@@ -1439,7 +1424,7 @@ define('km/validate', ['jquery'], function ($) {
      */
     Validate.prototype.methods = {
         required: function (value, $element) {
-            if ($element[0].nodeName.toLowerCase() === "select") {   
+            if ($element[0].nodeName.toLowerCase() === "select") {
                 var val = $.trim($element.val());
                 return val && val.length > 0;
             }
