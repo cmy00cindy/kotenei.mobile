@@ -113,7 +113,8 @@ define('km/app', ['jquery', 'km/router', 'km/popTips', 'km/util','km/loading'], 
 
         if(typeof(viewName) === 'string'){
             //调度view
-            require([viewName], function(View){
+            var _require = window.requirejs || window.require;
+            _require([viewName], function(View){
                 callView(View);
             });
         }
