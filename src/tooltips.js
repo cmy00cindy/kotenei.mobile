@@ -142,6 +142,7 @@ define('km/tooltips', ['jquery'], function ($) {
         } else {
             this.show();
         }
+        return false;
     };
 
     /**

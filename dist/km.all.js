@@ -1073,6 +1073,7 @@ define('km/tooltips', ['jquery'], function ($) {
         } else {
             this.show();
         }
+        return false;
     };
 
     /**
@@ -1116,6 +1117,7 @@ define('km/tooltips', ['jquery'], function ($) {
 
     return Tooltips;
 });
+
 /**
  * 
  * @module km/util 

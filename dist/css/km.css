@@ -158,6 +158,21 @@
 .km-tooltips.info.bottom .tooltips-arrow {
   border-bottom-color: #46b8da;
 }
+.km-tooltips.gray {
+  background: #ccc;
+}
+.km-tooltips.gray.top .tooltips-arrow {
+  border-top-color: #ccc;
+}
+.km-tooltips.gray.left .tooltips-arrow {
+  border-left-color: #ccc;
+}
+.km-tooltips.gray.right .tooltips-arrow {
+  border-right-color: #ccc;
+}
+.km-tooltips.gray.bottom .tooltips-arrow {
+  border-bottom-color: #ccc;
+}
 .km-tooltips.primary {
   background: #428bca;
 }
