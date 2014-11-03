@@ -309,7 +309,7 @@ define('km/validate', ['jquery'], function ($) {
             return this.optional($element) || /^\d{4}[\/-]\d{1,2}[\/-]\d{1,2}|\d{4}[\/-]\d{1,2}[\/-]\d{1,2}\s\d{1,2}[:]\d{1,2}[:]\d{1,2}\w$/.test(value);
         },
         mobile: function (value, $element) {
-            return this.optional($element) || /^((13[0-9])|(15[^4,\\D])|(18[0|1|2|5-9])|(17[0-9])|(14[0-9]))\d{8}$/.test(value);
+            return this.optional($element) || /^1\d{10}$/.test(value);
         },
         phone: function (value, $element) {
             return this.optional($element) || /^((0\d{2,3}\-)[1-9]\d{7}(\-\d{1,4})?)$/.test(value);
