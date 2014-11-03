@@ -309,7 +309,7 @@ define('km/validate', ['jquery'], function ($) {
             return this.optional($element) || /^\d{4}[\/-]\d{1,2}[\/-]\d{1,2}|\d{4}[\/-]\d{1,2}[\/-]\d{1,2}\s\d{1,2}[:]\d{1,2}[:]\d{1,2}\w$/.test(value);
         },
         mobile: function (value, $element) {
-            return this.optional($element) || /^((13[0-9])|(15[^4,\\D])|(18[0,5-9])|(170)|(177)|(181))\d{8}$/.test(value);
+            return this.optional($element) || /^((13[0-9])|(15[^4,\\D])|(18[0|1|2|5-9])|(17[0|7]))\d{8}$/.test(value);
         },
         phone: function (value, $element) {
             return this.optional($element) || /^((0\d{2,3}\-)[1-9]\d{7}(\-\d{1,4})?)$/.test(value);
@@ -447,20 +447,20 @@ define('km/validate', ['jquery'], function ($) {
      * 取表单数据
      * @return {Object}
      */
-    Validate.prototype.getData = function(){
+    Validate.prototype.getData = function () {
         var data = {};
-        var self  = this;
-        self.$form.find('input[name], textarea[name]').each(function(){
+        var self = this;
+        self.$form.find('input[name], textarea[name]').each(function () {
             var $el = $(this);
-            if($el.is('[type=checkbox]') === false && $el.is('[type=radio]') === false){
+            if ($el.is('[type=checkbox]') === false && $el.is('[type=radio]') === false) {
                 data[$el.attr('name')] = $.trim($el.val());
             }
-            else if($el.is('[type=radio]:checked')){
+            else if ($el.is('[type=radio]:checked')) {
                 data[$el.attr('name')] = $.trim($el.val());
             }
-            else if($el.is('[type=checkbox]:checked')){
+            else if ($el.is('[type=checkbox]:checked')) {
                 var name = $el.attr('name');
-                if(!data[name]){
+                if (!data[name]) {
                     data[name] = [];
                 }
                 data[name].push($el.val());
