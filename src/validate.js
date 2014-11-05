@@ -29,7 +29,8 @@ define('km/validate', ['jquery'], function ($) {
         messages: {},
         focusClear: true,
         keyupClear: true,
-        errorPlacement: null
+        errorPlacement: null,
+        showSingleError: false
     }
 
     /**
@@ -130,8 +131,17 @@ define('km/validate', ['jquery'], function ($) {
     Validate.prototype.validateFrom = function () {
         var self = this, pass = true;
 
+        if (this.options.showSingleError) {
+            this.hideAllError();
+        }
+
         for (var item in this.validFields.data) {
-            if (!self.validate({ target: this.validFields.data[item][0] })) { pass = false; }
+            if (!self.validate({ target: this.validFields.data[item][0] })) {
+                pass = false;
+                if (this.options.showSingleError) {
+                    break;
+                }
+            }
         }
         return pass;
     };
@@ -202,6 +212,16 @@ define('km/validate', ['jquery'], function ($) {
         }
         if (!$error) { return; }
         $error.hide();
+    };
+
+    /**
+     * 隐藏所有错误
+     * @return {Void}        
+     */
+    Validate.prototype.hideAllError = function () {
+        for (var item in this.validFields.data) {
+            this.hideError($(this.validFields.data[item][0]));
+        }
     };
 
     /**
